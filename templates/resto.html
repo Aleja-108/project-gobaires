@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../static/css/restaurante.css">
+    <script src="https://kit.fontawesome.com/f574dc0e37.js" crossorigin="anonymous"></script>
+    <title>Resto</title>
+</head>
+<body>
+    
+    <section id="seccion_resto">
+        <div class="contenedor_resto">
+            <div class="contenedor_fotos_resto">
+                <div class="fotos_resto">
+                    <div class="imagen" id="Imagen_1">
+                        <img src="../static/img/Resto_1.jpg" alt="Imagen Resto" id="img_resto1" class="img_resto">
+                    </div>
+                    <div class="direccion">
+                        <a href="#Imagen_3">
+                            <i class="fa-solid fa-arrow-left" id="fecha_izq"></i>
+                        </a>
+                        <a href="#Imagen_2">
+                            <i class="fa-solid fa-arrow-right" id="fecha_der"></i>
+                        </a>                    
+                    </div>
+                </div>
+                <div class="fotos_resto">
+                    <div class="imagen" id="Imagen_2"> 
+                        <img src="../static/img/Resto_2.jpg" alt="Imagen Resto" id="img_resto2" class="img_resto">
+                    </div>
+                    <div class="direccion">
+                        <a href="#Imagen_1">
+                            <i class="fa-solid fa-arrow-left" id="fecha_izq"></i>
+                        </a>
+                        <a href="#Imagen_3">
+                            <i class="fa-solid fa-arrow-right" id="fecha_der"></i>
+                        </a>                    
+                    </div>
+                </div>
+                <div class="fotos_resto">
+                    <div class="imagen" id="Imagen_3"> 
+                        <img src="../static/img/Resto_3.jpg" alt="Imagen Resto" id="img_resto3" class="img_resto">
+                    </div>
+                    <div class="direccion">
+                        <a href="#Imagen_2">
+                            <i class="fa-solid fa-arrow-left" id="fecha_izq"></i>
+                        </a>
+                        <a href="#Imagen_4">
+                            <i class="fa-solid fa-arrow-right" id="fecha_der"></i>
+                        </a>                    
+                    </div>
+                </div>
+                <div class="fotos_resto">
+                    <div class="imagen" id="Imagen_4"> 
+                        <img src="../static/img/Foto4.avif" alt="Imagen Resto" id="img_resto4" class="img_resto">
+                    </div>
+                    <div class="direccion">
+                        <a href="#Imagen_3">
+                            <i class="fa-solid fa-arrow-left" id="fecha_izq"></i>
+                        </a>
+                        <a href="#Imagen_1">
+                            <i class="fa-solid fa-arrow-right" id="fecha_der"></i>
+                        </a>                    
+                    </div>
+                </div>
+            </div>
+            <div class="contenedor_menu_resto">
+                <img src="../static/img/Menu.jpg" alt="Foto Menu" class="img">
+            </div>
+            <div class="contenedor_boton_reserva">
+                <button id="btn_abrir_modal">Reservar</button>
+            </div>
+        </div>
+    </section>
+
+    <dialog id="form_resto">
+        <h2>Formulario de Reserva</h2>
+        <form method="dialog" id="formulario_resto">
+            <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre">
+            </div>
+            <div>
+                <label for="tel">Telefono</label>
+                <input type="tel" id="tel">
+            </div>
+            <div>
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha">
+            </div>
+            <button type="submit" id="btn_cerrar_modal">Enviar</button>    
+        </form>
+    </dialog>
+
+    <script src="../static/js/resto.js"></script>
+</body>
+</html>

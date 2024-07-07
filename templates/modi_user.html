@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../static/imgs_a/favicon.ico">
+
+    <title>Modificar datos del usuario</title>
+    <link rel="stylesheet" href="../static/css/estilos.css">
+    <!--<link rel="stylesheet" href="../static/css/style.css"-->
+</head>
+
+<body>
+    <header>
+        <nav class="navbar-index ">
+            <img class="logo-nav" src="../static/imagenes/go_baires_blue_111.png" alt="GoBaires">
+        </nav>
+    </header>
+    
+    <div class="grid-banner">
+        <span><img src="../static/img/banner_reg.jpg" width="100%"></span>
+    </div>
+
+    <h1>Modificar datos del usuario</h1><br>
+
+    <form id="buscarForm">
+        <label>Buscar usuario por documento:</label><br>
+        <input type="text" id="documento" name="documento" required> <br>
+        <button type="submit">Buscar usuario</button>
+        <a href="{{ url_for('show_registro')}}">Menu principal</a>
+    </form>
+    <div id="resultado"></div>
+
+    <script>
+        const buscarForm = document.getElementById('buscarForm');
+        const resultadoDiv = document.getElementById('resultado');
+        mostrarDatosUsuario = false
+        mostrarNombre = ''
+
+        buscarForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const documento = document.getElementById('documento').value;
+            const URL = "http://localhost:5000/"
+
+            fetch('/buscar_usuario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `documento=${documento}`
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Viene por el NO response Error al buscar usuario');
+                }
+                return response.json();
+            })
+            .then(data => {
+                mostrarDatosUsuario = false
+                if (data.id_user > 0) {
+                    id_user = data.id_user;
+                    nombre = data.nombre;
+                    apellido = data.apellido;
+                    direccion = data.direccion;
+                    pais = data.pais;
+                    fono = data.fono;
+                    email = data.email;                    
+                    mostrarDatosUsuario = true
+                    // alert(`Datos del usuario:\nID: ${data.id}\nNombre: ${data.nombre}\nEmail: ${data.email}`);
+                } else {
+                    alert(`No se encontró un usuario con ese documento.`)    
+                }
+
+                mostrarFormulario();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultadoDiv.innerHTML = `<p>Error al buscar usuario</p>`;
+            });
+        });
+    </script>
+
+<!-- Desde acá está agregado -->
+    <!-- Contenedor principal que será controlado por JavaScript. Este contenedor tendrá dos formularios. -->
+    <div id="app">
+        <!-- Segundo formulario: se muestra solo si mostrarDatosProducto es verdadero. Llama a la función guardarCambios -->
+        <div id="datos-usuario" style="display: none;">
+            <h2>Datos del Usuario</h2>
+            <form id="form-guardar-cambios">
+                <label for="id_user">Id:</label>
+                <input type="text" id="id_user" name="id_user" readonly><br>
+
+                <label for="nombreModificar">Nombre:</label>
+                <input type="text" id="nombreModificar" name="nombreModificar" required><br>
+
+                <label for="apellidoModificar">Apellido:</label>
+                <input type="text" id="apellidoModificar" name="apellidoModificar" required><br>
+
+                <label for="direccionModificar">Dirección:</label>
+                <input type="text" id="direccionModificar" name="direccionModificar" required><br>
+
+                <label for="paisModificar">Pais:</label>
+                <input type="text" id="paisModificar" name="paisModificar" required><br>
+
+                <label for="fonoModificar">Teléfono:</label>
+                <input type="text" id="fonoModificar" name="fonoModificar" required><br>
+
+                <label for="emailModificar">E-mail:</label>
+                <input type="text" id="emailModificar" name="emailModificar" required><br>
+
+                <button type="submit">Guardar Cambios</button>
+                <a href="{{ url_for('show_registro')}}">Cancelar</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Muestra el formulario con los datos del producto        
+        function mostrarFormulario() {
+            if (mostrarDatosUsuario) {
+                // Debe cargar los datos en el formulario
+                document.getElementById('id_user').value = id_user;
+                document.getElementById('nombreModificar').value = nombre;
+                document.getElementById('apellidoModificar').value = apellido;
+                document.getElementById('direccionModificar').value = direccion;
+                document.getElementById('paisModificar').value = pais;
+                document.getElementById('fonoModificar').value = fono;
+                document.getElementById('emailModificar').value = email;
+
+                document.getElementById('datos-usuario').style.display = 'block';                
+                //alert('debe mostrar los datos del usuario', mostrarNombre)
+            } else {
+                document.getElementById('datos-usuario').style.display = 'none';
+            }
+        }
+
+        // Se usa para enviar los datos modificados del producto al servidor.
+        const datosUsuario = document.getElementById('form-guardar-cambios');
+
+        datosUsuario.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const URL = "http://localhost:5000/"
+            const formData = new FormData(datosUsuario);
+
+            formData.append('documento', document.getElementById('documento').value);
+            formData.append('nombre', document.getElementById('nombreModificar').value);
+            formData.append('apellido', document.getElementById('apellidoModificar').value);
+            formData.append('direccion', document.getElementById('direccionModificar').value);
+            formData.append('pais', document.getElementById('paisModificar').value);
+            formData.append('fono', document.getElementById('fonoModificar').value);
+            formData.append('email', document.getElementById('emailModificar').value);
+
+            var valorVar = formData.get('nombre');
+            console.log("este es el valor", valorVar)
+
+            fetch(URL + 'do_updt_user', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    throw new Error('Error al RESPONSE guardar los cambios del usuario.')
+                }
+            })
+            .then(data => {
+                alert('Usuario actualizado correctamente.');
+                limpiarFormulario();
+            })
+            .catch(error => {
+                console.log("A ver si esto sale por la consola")
+                console.error('Error:', error);
+                alert('Error al actualizar el Usuario.');
+            });
+        })
+
+        // Restablece todas las variables relacionadas con el formulario a sus valores iniciales, lo que efectivamente "limpia" el formulario.
+        function limpiarFormulario() {
+            document.getElementById('id_user').value = '';
+            document.getElementById('nombreModificar').value = '';
+            document.getElementById('apellidoModificar').value = '';
+            document.getElementById('direccionModificar').value = '';
+            document.getElementById('paisModificar').value = '';
+            document.getElementById('fonoModificar').value = '';
+            document.getElementById('emailModificar').value = '';
+
+            id_user = '';
+            nombre = '';
+            apellido = '';
+            direccion = '';
+            pais = '';
+            fono = '';
+            email = '';
+            mostrarDatosUsuario = false;
+
+            document.getElementById('datos-usuario').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

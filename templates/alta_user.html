@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../static/imgs_a/favicon.ico">
+
+    <title>GoBaires Hotel</title>
+    <link rel="stylesheet" href="../static/css/estilos.css">
+    <!--<link rel="stylesheet" href="../static/css/style.css"-->
+</head>
+
+<body>
+    <header>
+        <nav class="navbar-index ">
+            <img class="logo-nav" src="../static/imagenes/go_baires_blue_111.png" alt="GoBaires">
+        </nav>
+    </header>
+    
+    <div class="grid-banner">
+        <span><img src="../static/img/banner_reg.jpg" width="100%"></span>
+    </div>
+    
+    <h1>Registro de usuario</h1><br>
+
+    <!--enctype="multipart/form-data" es necesario para enviar archivos al back.-->
+    <form id="formulario" enctype="multipart/form-data">
+        
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br>
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required><br>
+
+        <label for="documento">Documento:</label>
+        <input type="text" id="documento" name="documento" required><br>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" required><br>        
+    
+        <label for="pais">País:</label>
+        <input type="text" id="pais" name="pais" required><br>
+
+        <label for="fono">Teléfono:</label>
+        <input type="text" id="fono" name="fono" required><br>
+    
+        <label for="email">E-Mail:</label>
+        <input type="text" id="email" name="email"><br>
+    
+        <label for="contrasena">Contraseña:</label>
+        <input type="text" id="contrasena" name="contrasena" required>
+
+        <button type="submit">Agregar usuario</button>
+        <a href="{{ url_for('show_registro')}}">Menu principal</a>
+    </form>
+
+    <script>
+        const form = document.getElementById('formulario');
+        form.addEventListener('submit', function(event) {
+             event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+  
+        // Crear un objeto FormData a partir del formulario
+        const formData = new FormData(form);
+        const URL = "http://localhost:5000/"
+
+        fetch(URL + 'do_alta_user', {
+            method: 'POST',
+            body: formData // Aquí enviamos formData. Dado que formData puede contener archivos, no se utiliza JSON.
+        })
+
+        //Después de realizar la solicitud POST, se utiliza el método then() para manejar la respuesta del servidor.
+        .then(function (response) {
+                if (response.ok) { 
+                    //Si la respuesta es exitosa, convierte los datos de la respuesta a formato JSON.
+                    return response.json(); 
+                } else {
+                    // Si hubo un error, lanzar explícitamente una excepción
+                    // para ser "catcheada" más adelante
+                    throw new Error('Error al agregar RESPONSE.');
+                }
+        })
+
+        //Respuesta OK, muestra una alerta informando que el producto se agregó correctamente y limpia los campos del formulario para que puedan ser utilizados para un nuevo producto.
+        .then(function (data) {
+            alert('Agregado correctamente.');
+        })
+
+        // En caso de error, mostramos una alerta con un mensaje de error.
+        .catch(function (error) {
+            alert('Error al agregar CATCH.');
+        })
+
+        // Limpiar el formulario en ambos casos (éxito o error)
+        .finally(function () {
+            document.getElementById('nombre').value = "";
+            document.getElementById('apellido').value = "";
+            document.getElementById('documento').value = "";
+            document.getElementById('direccion').value = "";
+            document.getElementById('pais').value = "";
+            document.getElementById('fono').value = "";
+            document.getElementById('email').value = "";
+            document.getElementById('contrasena').value = "";
+        });
+    })
+    </script>
+</body>
+
+</html>

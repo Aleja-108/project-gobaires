@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+-->
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../static/imgs_a/favicon.ico">
+
+    <title>Bienvenidos a GoBaires VIP</title>
+    <link rel="stylesheet" href="../static/css/estilos.css">
+    <!--<link rel="stylesheet" href="../static/css/style.css"-->
+</head>
+
+<body>
+    <header>
+        <nav class="navbar-index ">
+            <img class="logo-nav" src="../static/imagenes/go_baires_blue_111.png" alt="GoBaires">
+        </nav>
+    </header>
+    
+    <div class="grid-banner">
+        <span><img src="../static/img/banner_reg.jpg" width="100%"></span>
+    </div>
+
+    <div>
+        <br>
+        <h1>Bienvenidos a GoBaires VIP</h1><br>
+        <table>
+            <tr>
+                <td class="contenedor-centrado"><a href="{{ url_for('show_alta_user')}}">Alta de usuarios</a></td>
+            </tr>
+            <tr>
+                <td class="contenedor-centrado"><a href="{{ url_for('show_list_user')}}">Listado de usuarios</a></td>
+            </tr>
+            <tr>
+                <td class="contenedor-centrado"><a href="{{ url_for('show_modi_user')}}">Modificar datos de usuarios</a></td>
+            </tr>
+            <tr>
+                <td class="contenedor-centrado"><a href="{{ url_for('show_dele_user')}}">Darse de Baja</a></td>
+            </tr>            <tr>
+                <td class="contenedor-centrado ">
+                    <button name="al_inicio" class="button" onClick="GoStart()">
+                        Salir del registro
+                    </button>
+                </td>
+            </tr>              
+        </table>
+</body>
+<script type="text/javascript">
+    function GoStart()
+    {
+        window.location.href="{{ url_for('home') }}"
+    }
+</script>
+</html>

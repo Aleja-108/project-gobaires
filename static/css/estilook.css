@@ -1,0 +1,131 @@
+:root {
+    --bg-color: #fafafa;
+    --primary-color: #858282;
+    --secondary-color: #9c9997;
+    --third-color: #ccc4c4;
+    --third-bis-color: #9999a3f2;
+    --bg-input-color: #4f31572c;
+    --footer-bg-color: #37343f;
+    --footer-text-color: #fff;
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+#footer {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 20px;
+    padding:20px;
+}
+
+.footer-content {
+    display: contents;     
+}
+
+.footer-section {
+    padding: 10px;
+}
+
+#info-contacto {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;
+}
+
+.social-icons {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.social-icons {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.developers {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+}
+
+.maps-links {
+    grid-column: 1 / span 3;
+    grid-row: 2 / span 1;
+}
+
+.dropdown {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+}
+
+/* Dropdown para teléfonos importantes */
+.dropdown {
+    grid-column: 3 / span 1; 
+    grid-row: 1 / span 2; 
+}
+
+#seguinos {
+    display: flex;
+    gap: 10px;
+}
+
+#seguinos a img {
+    width: 50px;
+    height: auto;
+}
+
+a {
+    color: var(--footer-text-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Media Queries para tablet */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        text-align: center;
+        gap: 10px;
+        padding: 10px;
+    }
+    .footer-section {
+        padding: 10px;
+    }
+    .social-icons .social-icon {
+        font-size: 1.5rem;
+        margin: 0 5px;
+    }
+}
+
+/* Media Queries para móvil */
+@media screen and (max-width: 767px){
+    #footer {
+        padding: 20px 10px;
+    }
+    .footer-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 10px;
+    }
+    .footer-section {
+        padding: 5px;
+    }
+    .social-icons .social-icon {
+        font-size: 1.2rem;
+        margin: 0 3px;
+    }
+
+/* Mover la sección "Puntos de interés" al final */
+.maps-links.footer-section {
+    grid-row: 6; /* Asignar a la última fila */
+    }
+}
